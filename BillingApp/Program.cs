@@ -121,14 +121,19 @@ namespace BillingApp
 
             if (MultiOrderPromList.Count > index && MultiOrderPromList[index].Id == id)
             {
-                flagMutualExclusive = true;
+
                 var count = MultiOrderPromList[index].ItemCount;
                 var amount = MultiOrderPromList[index].Amount;
 
                 int quotient = orderCount / count;
                 int reminder = orderCount % count;
 
-                totalItemPrice = quotient * amount + reminder * itemPrice;
+                if (quotient > 0)
+                {
+                    flagMutualExclusive = true;
+                    totalItemPrice = quotient * amount + reminder * itemPrice;
+                }
+
             }
 
             return totalItemPrice;
@@ -171,7 +176,79 @@ namespace BillingApp
 
         static void Main(string[] args)
         {
-            Console.Write(" ");
+            PromoEngine pe = new PromoEngine();
+            while (true)
+            {
+                OrderList.Clear();
+                double totalAmount = 0;
+                string item = String.Empty;
+                string itemqty = String.Empty;
+                int qty = 0;
+                int id = 0;
+
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write("Enter the item ID for Order - Available Item Ids {1=A,2=B,3=C,4=D}: ");
+                        item = Console.ReadLine();
+                        id = Convert.ToInt32(item);
+                        Console.WriteLine();
+
+                        Console.Write("Enter the Item Quantity: ");
+                        itemqty = Console.ReadLine();
+                        qty = Convert.ToInt32(itemqty);
+                        Console.WriteLine();
+
+                        Order newitem = new Order(id, qty);
+                        OrderList.Add(newitem);
+
+
+                        Console.Write("Enter 1 to continue Purchase or 0 for checkin out Order:");
+                        string continuePurchase = Console.ReadLine();
+                        int contPur = Convert.ToInt32(continuePurchase);
+
+                        Console.WriteLine();
+
+                        if (0 == contPur) break;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+                foreach (var orderItem in OrderList)
+                {
+                    if (false == flagMutualExclusive)
+                        totalAmount += pe.MultiSkuOrder(orderItem.Id, orderItem.quantity);
+
+                   
+                    if (false == flagMutualExclusive)
+                    {
+                        var itemPrice = items[orderItem.Id - 1].Price;
+                        totalAmount += itemPrice * orderItem.quantity;
+                    }
+
+                    flagMutualExclusive = false;
+
+                }
+
+                Console.WriteLine("Total bill Amount = {0}", totalAmount);
+                Console.WriteLine();
+                try
+                {
+                    Console.Write("Enter 1 for new order or 0 for Exit: ");
+                    string continueOrder = Console.ReadLine();
+                    int contOrd = Convert.ToInt32(continueOrder);
+                    Console.WriteLine("---------------------------------------------------------");
+                    if (0 == contOrd) return;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
     }
 }
