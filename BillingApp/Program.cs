@@ -142,20 +142,62 @@ namespace BillingApp
         public double ComboSkuOrder(int id)
         {
             double totalItemPrice = 0;
-
-
-            foreach (var item in ComboOrderList)
+            int cnt = 0;
+            foreach (var ComboList in ComboOrderList)
             {
-                flagMutualExclusive = true;
-                foreach (var item1 in item.Items)
+                cnt = 0;
+                if (ComboList.Id == id)
                 {
-                    
+                    bool bflag = false;
+                    foreach (var orderItem in OrderList)
+                    {
+                        //if (orderItem.Id == id)
+                        {
+                            if (orderItem.quantity > 0)
+                            {
+
+                                foreach (var it in ComboList.Items)
+                                {
+                                    if (orderItem.Id == it)
+                                    {
+                                        cnt++;
+                                        //orderItem.quantity--;
+                                        //bflag = true;
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //if (bflag == true)
+                    if (cnt == ComboList.Items.Count)
+                    {
+                        //orderItem.quantity--;
+                        totalItemPrice = ComboList.Amount;
+
+                        foreach (var orderItem in OrderList)
+                        {
+                            if (orderItem.quantity > 0)
+                            {
+                                foreach (var it in ComboList.Items)
+                                {
+                                    if (orderItem.Id == it)
+                                    {
+                                        orderItem.quantity--;
+                                        continue;
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
                 }
-             
             }
 
             return totalItemPrice;
         }
+
         public double PercentageDiscountSkuOrder(int id, int count)
         {
             double totalItemPrice = 0;
@@ -176,7 +218,7 @@ namespace BillingApp
 
         static void Main(string[] args)
         {
-            PromoEngine pe = new PromoEngine();
+            PromoEngine engine = new PromoEngine();
             while (true)
             {
                 OrderList.Clear();
@@ -221,9 +263,19 @@ namespace BillingApp
                 foreach (var orderItem in OrderList)
                 {
                     if (false == flagMutualExclusive)
-                        totalAmount += pe.MultiSkuOrder(orderItem.Id, orderItem.quantity);
+                        totalAmount += engine.MultiSkuOrder(orderItem.Id, orderItem.quantity);
 
-                   
+                    if (false == flagMutualExclusive)
+                    {
+                        int counter = orderItem.quantity;
+                        while (counter > 0)
+                        {
+                            totalAmount += engine.ComboSkuOrder(orderItem.Id);
+                            counter--;
+                        }
+                    }
+
+
                     if (false == flagMutualExclusive)
                     {
                         var itemPrice = items[orderItem.Id - 1].Price;
