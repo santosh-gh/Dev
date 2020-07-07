@@ -1,3 +1,4 @@
-BillingApp/bin UnitTestProject/bin
-
-BillingApp/obj UnitTestProject/obj
+/BillingApp/bin
+/UnitTestProject/bin
+/BillingApp/obj
+/UnitTestProject/obj
