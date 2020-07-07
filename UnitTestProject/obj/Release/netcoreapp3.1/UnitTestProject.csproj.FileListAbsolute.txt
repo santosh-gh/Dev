@@ -185,4 +185,3 @@ C:\Dev\UnitTestProject\obj\Release\netcoreapp3.1\UnitTestProject.AssemblyInfo.cs
 C:\Dev\UnitTestProject\obj\Release\netcoreapp3.1\UnitTestProject.csproj.CopyComplete
 C:\Dev\UnitTestProject\obj\Release\netcoreapp3.1\UnitTestProject.dll
 C:\Dev\UnitTestProject\obj\Release\netcoreapp3.1\UnitTestProject.pdb
-C:\Dev\UnitTestProject\obj\Release\netcoreapp3.1\UnitTestProject.csprojAssemblyReference.cache

@@ -100,7 +100,7 @@ namespace BillingApp
                     totalItemPrice = quotient * amount + reminder * itemPrice;
                 }
             }
-
+           
             return totalItemPrice;
         }
 
@@ -153,7 +153,7 @@ namespace BillingApp
                     }
                 }
             }
-
+           
             return totalItemPrice;
         }
 
@@ -171,6 +171,7 @@ namespace BillingApp
                 totalItemPrice = count * (itemPrice * percent / 100);
             }
 
+            
             return totalItemPrice;
         }
 

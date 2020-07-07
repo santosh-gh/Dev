@@ -8,4 +8,3 @@ C:\Dev\BillingApp\obj\Release\netcoreapp3.1\BillingApp.AssemblyInfoInputs.cache
 C:\Dev\BillingApp\obj\Release\netcoreapp3.1\BillingApp.AssemblyInfo.cs
 C:\Dev\BillingApp\obj\Release\netcoreapp3.1\BillingApp.dll
 C:\Dev\BillingApp\obj\Release\netcoreapp3.1\BillingApp.pdb
-C:\Dev\BillingApp\obj\Release\netcoreapp3.1\BillingApp.csprojAssemblyReference.cache

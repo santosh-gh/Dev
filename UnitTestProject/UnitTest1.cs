@@ -10,17 +10,22 @@ namespace UnitTestProject
         public void Test_MultiSkuOrder()
         {
             PromoEngine pe = new PromoEngine();
-            pe.MultiSkuOrder(1,5);
+            double price = pe.MultiSkuOrder(1,3);           
+            Assert.AreEqual(price, 130);                  
         }
+        [TestMethod]
         public void Test_ComboSkuOrder()
         {
             PromoEngine pe = new PromoEngine();
-            pe.ComboSkuOrder(1);
+            double price = pe.ComboSkuOrder(1);
+            Assert.AreEqual(price, 0);
         }
+        [TestMethod]
         public void Test_PercentageDiscountSkuOrderr()
         {
             PromoEngine pe = new PromoEngine();
-            pe.PercentageDiscountSkuOrder(1, 5);
+            double price = pe.PercentageDiscountSkuOrder(1, 5);
+            Assert.AreEqual(price, 12.5);
         }
     }
 }
