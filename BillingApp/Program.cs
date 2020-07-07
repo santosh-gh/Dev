@@ -5,12 +5,6 @@ namespace BillingApp
 {
     public class PromoEngine
     {
-
-        public void Display()
-        {
-            Console.Write("Hallo World! ");
-        }
-
         public class Sku
         {
             public int Id { get; set; }
@@ -26,7 +20,6 @@ namespace BillingApp
 
         }
 
-
         public class ComboOrder
         {
             public int Id { get; set; }
@@ -34,7 +27,6 @@ namespace BillingApp
             public double Amount { get; set; }
 
         }
-
         public class PercentDiscountPromo
         {
             public int Id { get; set; }
@@ -52,36 +44,10 @@ namespace BillingApp
 
             public int Id { get; set; }
             public int quantity { get; set; }
-        }
-
-        public class PromoType
-        {
-            public double MultiSkuOrder(int id, int count)
-            {
-
-                return 0;
-            }
-            public double ComboSkuOrder1(long ComboPrice, params string[] IdList)
-            {
-
-                return 0;
-            }
-            public double PercentageDiscountSkuOrder(int id, int count)
-            {
-                return 0;
-            }
-            public void CheckoutOrder(int id, int count)
-            {
-
-
-            }
-            public void CancelOrder(long ComboPrice, params string[] IdList)
-            {
-
-            }
-
-        }
+        }  
+        
         static bool flagMutualExclusive = false;
+
         static List<Sku> items = new List<Sku>()
             {
                 new Sku{ Id=1, Name="A", Price= 50},
@@ -92,24 +58,24 @@ namespace BillingApp
 
 
         static List<MultiOrderProm> MultiOrderPromList = new List<MultiOrderProm>()
-            {
-                new MultiOrderProm{ Id=1, ItemCount= 3, Amount = 130},
-                new MultiOrderProm{ Id=2, ItemCount= 2, Amount = 45 }
-            };
+        {
+            new MultiOrderProm{ Id=1, ItemCount= 3, Amount = 130},
+            new MultiOrderProm{ Id=2, ItemCount= 2, Amount = 45 }
+        };
 
         static List<ComboOrder> ComboOrderList = new List<ComboOrder>()
-            {
-                new ComboOrder{ Id=3, Items = new List<int> {3,4}, Amount = 30}
-                //new ComboOrder{ Id=4, Items = new List<int> {1,2,3 }, Amount = 3}
-            };
+        {
+            new ComboOrder{ Id=3, Items = new List<int> {3,4}, Amount = 30}
+            //new ComboOrder{ Id=4, Items = new List<int> {1,2,3 }, Amount = 3}
+        };
 
 
 
         static List<PercentDiscountPromo> PercentDiscountPromoList = new List<PercentDiscountPromo>()
-            {
-                new PercentDiscountPromo{ Id=1, percent= 5},
-                new PercentDiscountPromo{ Id=2, percent= 3}
-            };
+        {
+            new PercentDiscountPromo{ Id=1, percent= 5},
+            new PercentDiscountPromo{ Id=2, percent= 3}
+        };
 
         static List<Order> OrderList = new List<Order>();
 
@@ -133,7 +99,6 @@ namespace BillingApp
                     flagMutualExclusive = true;
                     totalItemPrice = quotient * amount + reminder * itemPrice;
                 }
-
             }
 
             return totalItemPrice;
@@ -151,28 +116,22 @@ namespace BillingApp
                     bool bflag = false;
                     foreach (var orderItem in OrderList)
                     {
-                        //if (orderItem.Id == id)
+                        if (orderItem.quantity > 0)
                         {
-                            if (orderItem.quantity > 0)
-                            {
 
-                                foreach (var it in ComboList.Items)
+                            foreach (var it in ComboList.Items)
+                            {
+                                if (orderItem.Id == it)
                                 {
-                                    if (orderItem.Id == it)
-                                    {
-                                        cnt++;
-                                        //orderItem.quantity--;
-                                        //bflag = true;
-                                        continue;
-                                    }
+                                    cnt++;
+                                    continue;
                                 }
                             }
                         }
                     }
-                    //if (bflag == true)
+
                     if (cnt == ComboList.Items.Count)
                     {
-                        //orderItem.quantity--;
                         totalItemPrice = ComboList.Amount;
 
                         foreach (var orderItem in OrderList)
