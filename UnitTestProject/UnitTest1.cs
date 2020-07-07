@@ -18,5 +18,15 @@ namespace UnitTestProject
             PromoEngine pe = new PromoEngine();
             pe.MultiSkuOrder(1,5);
         }
+        public void Test_ComboSkuOrder()
+        {
+            PromoEngine pe = new PromoEngine();
+            pe.ComboSkuOrder(1);
+        }
+        public void Test_PercentageDiscountSkuOrderr()
+        {
+            PromoEngine pe = new PromoEngine();
+            pe.PercentageDiscountSkuOrder(1, 5);
+        }
     }
 }

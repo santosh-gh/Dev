@@ -134,6 +134,40 @@ namespace BillingApp
             return totalItemPrice;
         }
 
+        public double ComboSkuOrder(int id)
+        {
+            double totalItemPrice = 0;
+
+
+            foreach (var item in ComboOrderList)
+            {
+                flagMutualExclusive = true;
+                foreach (var item1 in item.Items)
+                {
+                    
+                }
+             
+            }
+
+            return totalItemPrice;
+        }
+        public double PercentageDiscountSkuOrder(int id, int count)
+        {
+            double totalItemPrice = 0;
+            int index = id - 1;
+            var itemPrice = items[index].Price;
+
+            if (PercentDiscountPromoList.Count > index && PercentDiscountPromoList[index].Id == id)
+            {
+                flagMutualExclusive = true;
+                var percent = PercentDiscountPromoList[index].percent;
+
+                totalItemPrice = count * (itemPrice * percent / 100);
+            }
+
+            return totalItemPrice;
+        }
+
 
         static void Main(string[] args)
         {
